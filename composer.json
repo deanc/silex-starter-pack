@@ -12,8 +12,8 @@
         ,"symfony/console": "~2.3"
     }
     ,"autoload": {
-    "psr-0": {
-        "DC\\SilexStarterPack": "src/"
+        "psr-0": {
+            "DC\\SilexStarterPack": "src/"
+        }
     }
-}
 }
