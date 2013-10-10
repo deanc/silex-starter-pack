@@ -1,0 +1,10 @@
+.idea/
+*.sublime-*
+
+.DS_Store
+
+app/config.php
+composer.lock
+vendor/
+
+
