@@ -1,6 +1,6 @@
 <?php
 
-namespace DC\SilexStarterPack\Controller;
+namespace DC\SilexStarterPack\Controller\Admin;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
