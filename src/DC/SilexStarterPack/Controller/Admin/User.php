@@ -31,18 +31,18 @@ class User implements ControllerProviderInterface
             $password = $request->server->get('PHP_AUTH_PW');
 
             if ($app['login.username'] === $username && $app['login.password'] === $password) {
-                $app['session']->set('isAuthenticated', true);
+                $app['session']->set('isAdminAuthenticated', true);
                 return $app->redirect($app['url_generator']->generate($app['login.redirect']));
             }
             return $app['login.basic_login_response'];
-        })->bind('login');
+        })->bind('admin_login');
 
         // logout
         $controllers->get('/logout', function (Request $request, Application $app) {
-            $app['session']->set('isAuthenticated', false);
+            $app['session']->set('isAdminAuthenticated', false);
             $_SESSION = array();
             return $app['login.basic_login_response'];
-        })->bind('logout');
+        })->bind('admin_logout');
 
         return $controllers;
     }

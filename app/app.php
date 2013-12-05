@@ -59,9 +59,9 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['adminAuth'] = $app->protect(function(Request $request) use ($app) {
-    if(!$app['session']->get('isAuthenticated')) {
+    if(!$app['session']->get('isAdminAuthenticated')) {
         //$app->abort(403, 'You cannot be here!');
-        return $app->redirect($app['url_generator']->generate('login'));
+        return $app->redirect($app['url_generator']->generate('admin_login'));
     }
 });
 

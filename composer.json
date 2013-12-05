@@ -10,6 +10,7 @@
         ,"symfony/form": "~2.3"
         ,"symfony/validator": "~2.3"
         ,"symfony/console": "~2.3"
+        ,"ircmaxell/password-compat": "dev-master"
     }
     ,"autoload": {
         "psr-0": {
