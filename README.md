@@ -77,6 +77,12 @@ Console Applications
 
 Info coming soon
 
+Reccommended Libraries
+-----
+
+* Pagination: "soup/paginator" https://packagist.org/packages/soup/paginator
+* Mailing: "swiftmailer/swiftmailer" https://packagist.org/packages/swiftmailer/swiftmailer
+
 Author
 -----
 [Dean Clatworthy](http://deanclatworthy.com)
