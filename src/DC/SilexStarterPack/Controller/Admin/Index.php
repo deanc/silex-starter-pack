@@ -14,9 +14,6 @@ class Index implements ControllerProviderInterface
         // creates a new controller based on the default route
         $controllers = $app['controllers_factory'];
 
-        // essential to enforce admin login on the controller
-        $controllers->before($app['adminAuth']);
-
         // default route
         $controllers->get('/', function() use ($app) {
             return $app['twig']->render('admin/index.twig');

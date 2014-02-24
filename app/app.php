@@ -58,11 +58,35 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
-$app['adminAuth'] = $app->protect(function(Request $request) use ($app) {
-    if(!$app['session']->get('isAdminAuthenticated')) {
-        //$app->abort(403, 'You cannot be here!');
-        return $app->redirect($app['url_generator']->generate('admin_login'));
-    }
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'admin' => array(
+            'pattern' => '^/a',
+            'form' => array(
+                'login_path' => '/login'
+                , 'check_path' => '/a/login_check'
+                , 'default_target_path' => 'default_security_target'
+            ),
+            'logout' => array('logout_path' => '/a/logout'),
+            'users' => array(
+                // raw password is foo
+                'admin' => array('ROLE_ADMIN', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='),
+            ),
+        )
+    )
+));
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('admin/login.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
 });
+
+//$app['adminAuth'] = $app->protect(function(Request $request) use ($app) {
+//    if(!$app['session']->get('isAdminAuthenticated')) {
+//        //$app->abort(403, 'You cannot be here!');
+//        return $app->redirect($app['url_generator']->generate('admin_login'));
+//    }
+//});
 
 return $app;

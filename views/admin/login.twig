@@ -1,0 +1,20 @@
+{% extends "admin/shell.twig" %}
+
+{% block content %}
+
+<form action="{{ path('a_login_check') }}" method="post">
+    {{ error }}
+    <div class="control-group">
+        <label>{{ app.translator.trans('login_form_username_label') }}</label>
+        <input type="text" name="_username" value="{{ last_username }}" />
+    </div>
+
+    <div class="control-group">
+        <label>{{ app.translator.trans('login_form_password_label') }}</label>
+        <input type="password" name="_password" value="" />
+    </div>
+
+    <input type="submit" value="{{ app.translator.trans('login_form_submit_label') }}" />
+</form>
+
+{% endblock %}
