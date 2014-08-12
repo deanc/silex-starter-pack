@@ -1,6 +1,19 @@
 {
+    "name": "deanc/silex-starter-pack"
+    ,"type": "library"
+    ,"description": "A boilerplate to get started with silex"
+    ,"keywords": ["silex", "symfony", "boilerplate", "php"]
+    ,"homepage": "https://github.com/deanc/silex-starter-pack"
+    ,"license": "MIT"
+    ,"authors": [
+        {
+            "name": "Dean Clatworthy"
+            ,"homepage": "http://deanclatworthy.com"
+        }
+    ],
     "require": {
-        "silex/silex": "1.*"
+        "php": ">5.3.2"
+        ,"silex/silex": "1.*"
         ,"twig/twig": ">=1.8,<2.0-dev"
         ,"symfony/twig-bridge": "~2.3"
         ,"symfony/translation": "~2.3"
