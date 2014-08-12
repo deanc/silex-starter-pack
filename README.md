@@ -10,7 +10,12 @@ The Silex Starter Pack is a simple bootstrap to help you begin your project with
 Installation
 --------------
 
-* Clone the repository
+* Create your project by typing the following command:
+
+```sh
+    composer create-project deanc/silex-starter-pack your-project-name dev-master
+```
+
 * Decide on your any namespaces you are going to want to autoload and create the relevent directory structure under the `src` directory.
 * Open up composer.json and adjust the `autoload` section to load your new namespace. If you want to keep the admin control panel you'll need to keep loading the `SilexStarterPack` namespace. An example would be:
 
