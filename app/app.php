@@ -47,15 +47,23 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 // db
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+$dbOptions = array(
     'db.options' => array(
         'driver'   => DB_DRIVER,
         'host'      => DB_HOST,
         'dbname'    => DB_NAME,
         'user'      => DB_USER,
-        'password'  => DB_PASS,
-    ),
-));
+        'password'  => DB_PASS
+    )
+);
+if(DB_FORCE_UTF8) {
+    $dbOptions['db.options']['driverOptions'] = array(
+        1002=>'SET NAMES utf8'
+    );
+}
+
+// db
+$app->register(new Silex\Provider\DoctrineServiceProvider(), $dbOptions);
 
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
