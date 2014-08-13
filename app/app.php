@@ -12,10 +12,6 @@ $app = new Silex\Application();
 // turn on debug mode
 $app['debug'] = DEBUG_MODE;
 
-// admin logins
-$app['login.username'] = ADMIN_USERNAME;
-$app['login.password'] = ADMIN_PASSWORD;
-
 // enable translations
 $app['locale'] = 'en_GB';
 
