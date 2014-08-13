@@ -2,6 +2,7 @@
 
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 require_once('bootstrap.php');
 require_once('config.php');
@@ -16,12 +17,19 @@ $app['login.username'] = ADMIN_USERNAME;
 $app['login.password'] = ADMIN_PASSWORD;
 
 // enable translations
-$app['locale'] = 'en';
+$app['locale'] = 'en_GB';
 
 $app->before(function () use ($app) {
     if ($locale = $app['request']->get('locale')) {
         $app['locale'] = $locale;
     }
+});
+
+// do some security stuff
+$app->after(function (Request $request, Response $response) {
+    $response->headers->set('X-Frame-Options', 'DENY');
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
+    $response->headers->set('X-UA-Compatible', 'IE=edge');
 });
 
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
@@ -31,8 +39,8 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
     $translator->addLoader('yaml', new YamlFileLoader());
 
-    $translator->addResource('yaml', __DIR__.'/../translations/en.yml', 'en');
-    //$translator->addResource('yaml', __DIR__.'/../translations/fi.yml', 'fi');
+    $translator->addResource('yaml', __DIR__.'/../translations/en_GB.yml', 'en_GB');
+    //$translator->addResource('yaml', __DIR__.'/../translations/fi_FI.yml', 'fi_FI');
 
     return $translator;
 }));
