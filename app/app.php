@@ -29,7 +29,7 @@ $app->after(function (Request $request, Response $response) {
 });
 
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
-    'locale_fallbacks' => array('en'),
+    'locale_fallbacks' => array('en_GB'),
 ));
 
 $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
@@ -40,6 +40,9 @@ $app['translator'] = $app->share($app->extend('translator', function($translator
 
     return $translator;
 }));
+
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\FormServiceProvider());
 
 // templates
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -61,32 +64,39 @@ if(DB_FORCE_UTF8) {
         1002=>'SET NAMES utf8'
     );
 }
-
-// db
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $dbOptions);
 
-$app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
-        'admin' => array(
+        'admin_secured_area' => array(
             'pattern' => '^/a',
             'form' => array(
                 'login_path' => '/login'
-                , 'check_path' => '/a/login_check'
-                , 'default_target_path' => 'default_security_target'
+            , 'check_path' => '/a/login_check'
+            , 'default_target_path' => 'default_security_target'
             ),
             'logout' => array('logout_path' => '/a/logout'),
             'users' => array(
                 // raw password is foo
-                'admin' => array('ROLE_ADMIN', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='),
+                ADMIN_USERNAME => array('ROLE_ADMIN', ADMIN_PASSWORD_HASH),
             ),
+        )
+    ,'anonymous' => array(
+            'anonymous' => true
         )
     )
 ));
+
+if(FORCE_HTTPS) {
+    $app['security.access_rules'] = array(
+        array('^/', 'IS_AUTHENTICATED_ANONYMOUSLY', 'https'),
+    );
+}
+
+
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('admin/login.twig', array(
         'error'         => $app['security.last_error']($request),
