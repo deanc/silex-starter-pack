@@ -18,6 +18,10 @@ $app['locale'] = 'en_GB';
 $app->before(function () use ($app) {
     if ($locale = $app['request']->get('locale')) {
         $app['locale'] = $locale;
+        $app['session']->set('locale', $locale);
+    }
+    else if ($locale = $app['session']->get('locale')) {
+        $app['locale'] = $locale;
     }
 });
 
