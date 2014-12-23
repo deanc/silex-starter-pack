@@ -24,7 +24,6 @@
         ,"symfony/validator": "2.6.*"
         ,"symfony/console": "2.6.*"
         ,"symfony/security": "2.6.*"
-        ,"ircmaxell/password-compat": "dev-master"
     }
     ,"autoload": {
         "psr-0": {
