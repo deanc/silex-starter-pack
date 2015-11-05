@@ -76,7 +76,7 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'admin_secured_area' => array(
-            'pattern' => '^/a',
+            'pattern' => '^/a/',
             'form' => array(
                 'login_path' => '/login'
             , 'check_path' => '/a/login_check'

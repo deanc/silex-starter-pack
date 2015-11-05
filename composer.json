@@ -19,7 +19,7 @@
         ,"symfony/translation": "2.6.*"
         ,"symfony/config": "2.6.*"
         ,"symfony/yaml": "2.6.*"
-        ,"doctrine/dbal": "2.5.*"
+        ,"doctrine/dbal": "^2.5"
         ,"symfony/form": "2.6.*"
         ,"symfony/validator": "2.6.*"
         ,"symfony/console": "2.6.*"

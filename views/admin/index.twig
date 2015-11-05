@@ -1,17 +1,13 @@
-{% extends "admin/shell_loggedin.twig" %}
+{% extends "admin/shell.twig" %}
 
 {% block content %}
 
     <ul class="breadcrumb">
-        <li><a href="{{ path('admin_index') }}">Home</a> <span class="divider">/</span></li>
-        <li>All admin pages</li>
+        <li><i class="fa fa-dashboard"></i> <a href="{{ path('admin_index') }}">Dashboard</a></li>
+        <li>Home</li>
     </ul>
 
-    <ul>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
-    </ul>
+    <p>Feel free to add whatever here</p>
 
 
 {% endblock %}
