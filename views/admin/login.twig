@@ -1,20 +1,93 @@
-{% extends "admin/shell.twig" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* thanks http://getbootstrap.com/examples/signin/signin.css  */
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
 
-<form action="{{ path('a_login_check') }}" method="post">
-    {{ error }}
-    <div class="control-group">
-        <label>{{ app.translator.trans('login_form_username_label') }}</label>
-        <input type="text" name="_username" value="{{ last_username }}" />
-    </div>
+        .form-signin {
+            max-width: 360px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .form-signin .well {
+            padding: 25px 40px 35px 40px;
+        }
+        .form-signin .form-signin-heading { margin-top: 0; }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
 
-    <div class="control-group">
-        <label>{{ app.translator.trans('login_form_password_label') }}</label>
-        <input type="password" name="_password" value="" />
-    </div>
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
 
-    <input type="submit" value="{{ app.translator.trans('login_form_submit_label') }}" />
-</form>
+</head>
 
-{% endblock %}
+<body>
+
+<div class="container">
+
+
+    <form class="form-signin" action="{{ path('a_login_check') }}" method="post">
+        <div class="well">
+            <h2 class="form-signin-heading">{{ app.translator.trans('admin.forms.login.header') }}</h2>
+
+            {{ error }}
+                <label class="sr-only" for="inputUsername">{{ app.translator.trans('admin.forms.login.labels.username') }}</label>
+                <input placeholder="{{ app.translator.trans('admin.forms.login.labels.username') }}" class="form-control" id="inputUsername" type="text" name="_username" value="{{ last_username }}" />
+
+                <label class="sr-only" for="inputPassword">{{ app.translator.trans('admin.forms.login.labels.password') }}</label>
+                <input placeholder="{{ app.translator.trans('admin.forms.login.labels.password') }}" class="form-control" id="inputPassword" type="password" name="_password" value="" />
+
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{{ app.translator.trans('admin.forms.login.labels.submit') }}</button>
+        </div>
+    </form>
+
+
+</div> <!-- /container -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

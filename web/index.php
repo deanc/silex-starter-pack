@@ -10,6 +10,6 @@ $app->get('/', function (Request $request) use ($app) {
 })->bind('homepage');
 
 // mount the admin index controller - add any seperate admin controllers below here too
-$app->mount('/a', new DC\SilexStarterPack\Controller\Admin\Index());
+$app->mount('/a/', new DC\SilexStarterPack\Controller\Admin\Index());
 
 $app->run();
