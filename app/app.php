@@ -77,6 +77,11 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'admin_secured_area' => array(
             'pattern' => '^/a/',
+            'remember_me' => array(
+                'key'                => ADMIN_UNIQUE_RANDOM_KEY,
+                'always_remember_me' => true,
+                /* Other options */
+            ),
             'form' => array(
                 'login_path' => '/login'
             , 'check_path' => '/a/login_check'
@@ -93,6 +98,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         )
     )
 ));
+$app->register(new Silex\Provider\RememberMeServiceProvider());
 
 if(FORCE_HTTPS) {
     $app['security.access_rules'] = array(

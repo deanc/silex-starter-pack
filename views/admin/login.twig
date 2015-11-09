@@ -32,6 +32,12 @@
         .form-signin .checkbox {
             font-weight: normal;
         }
+        .form-signin .rememberMe {
+            margin-bottom: 10px;
+        }
+        .form-signin label {
+            font-weight: normal;
+        }
         .form-signin .form-control {
             position: relative;
             height: auto;
@@ -71,13 +77,17 @@
         <div class="well">
             <h2 class="form-signin-heading">{{ app.translator.trans('admin.forms.login.header') }}</h2>
 
-            {{ error }}
+                {% if error|length > 0 %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
                 <label class="sr-only" for="inputUsername">{{ app.translator.trans('admin.forms.login.labels.username') }}</label>
                 <input placeholder="{{ app.translator.trans('admin.forms.login.labels.username') }}" class="form-control" id="inputUsername" type="text" name="_username" value="{{ last_username }}" />
 
                 <label class="sr-only" for="inputPassword">{{ app.translator.trans('admin.forms.login.labels.password') }}</label>
                 <input placeholder="{{ app.translator.trans('admin.forms.login.labels.password') }}" class="form-control" id="inputPassword" type="password" name="_password" value="" />
 
+                <label for="inputRememberMe" class="rememberMe">
+                    <input type="checkbox" id="inputRememberMe" name="_remember_me" value="1" />
+                    Remember me?
+                </label>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">{{ app.translator.trans('admin.forms.login.labels.submit') }}</button>
         </div>

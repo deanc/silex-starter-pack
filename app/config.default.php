@@ -15,5 +15,8 @@ define('FORCE_HTTPS', false);
 define('ADMIN_USERNAME', 'admin');
 define('ADMIN_PASSWORD_HASH', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='); // foo
 
+// Set this to a long and random key
+define('ADMIN_UNIQUE_RANDOM_KEY', '');
+
 // toggle for debug mode
 define('DEBUG_MODE', true);
