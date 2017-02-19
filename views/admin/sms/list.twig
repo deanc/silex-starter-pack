@@ -1,0 +1,38 @@
+{% extends "admin/shell.twig" %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>SMSs</h1>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> <a href="{{ path('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ path('admin.sms.list') }}">SMSs</a></li>
+        <li>Viewing all sent SMSs</li>
+    </ul>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th width="1%">ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th width="50%">Text</th>
+            <th>Sent</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in smss %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.from }}</td>
+                <td>{{ row.to }}</td>
+                <td>{{ row.body }}</td>
+                <td>{{ row.created }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -4,6 +4,8 @@ use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use DC\SilexStarterPack\Provider\UserProvider;
+
 require_once('bootstrap.php');
 require_once('config.php');
 
@@ -15,8 +17,8 @@ $app['debug'] = DEBUG_MODE;
 // enable translations
 $app['locale'] = 'en_GB';
 
-$app->before(function () use ($app) {
-    if ($locale = $app['request']->get('locale')) {
+$app->before(function (Request $request) use ($app) {
+    if ($locale = $request->get('locale')) {
         $app['locale'] = $locale;
         $app['session']->set('locale', $locale);
     }
@@ -36,16 +38,15 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'locale_fallbacks' => array('en_GB'),
 ));
 
-$app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
+$app['translator'] = $app->extend('translator', function($translator, $app) {
     $translator->addLoader('yaml', new YamlFileLoader());
 
     $translator->addResource('yaml', __DIR__.'/../translations/en_GB.yml', 'en_GB');
     //$translator->addResource('yaml', __DIR__.'/../translations/fi_FI.yml', 'fi_FI');
 
     return $translator;
-}));
+});
 
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 
 // templates
@@ -84,28 +85,32 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             ),
             'form' => array(
                 'login_path' => '/login'
-            , 'check_path' => '/a/login_check'
-            , 'default_target_path' => 'default_security_target'
+                , 'check_path' => '/a/login_check'
+                , 'default_target_path' => '/a/'
             ),
-            'logout' => array('logout_path' => '/a/logout'),
-            'users' => array(
-                // raw password is foo
-                ADMIN_USERNAME => array('ROLE_ADMIN', ADMIN_PASSWORD_HASH),
-            ),
+            'logout' => array('logout_path' => '/a/logout', 'target_url' => '/login'),
+            'users' => function () use ($app) {
+                return new UserProvider($app['db']);
+            }
         )
     ,'anonymous' => array(
             'anonymous' => true
         )
     )
 ));
+$app['security.role_hierarchy'] = array(
+    'ROLE_ADMIN' => array('ROLE_USER', 'ROLE_USERS', 'ROLE_SMS', 'ROLE_ALLOWED_TO_SWITCH'),
+    'ROLE_SUPERMOD' => array('ROLE_USER', 'ROLE_SMS'),
+    'ROLE_MOD' => array('ROLE_USER', 'ROLE_SMS'),
+    'ROLE_USER' => array()
+);
 $app->register(new Silex\Provider\RememberMeServiceProvider());
 
-if(FORCE_HTTPS) {
-    $app['security.access_rules'] = array(
-        array('^/', 'IS_AUTHENTICATED_ANONYMOUSLY', 'https'),
-    );
-}
-
+//if(FORCE_HTTPS) {
+//    $app['security.access_rules'] = array(
+//        array('^/', 'IS_AUTHENTICATED_ANONYMOUSLY', 'https'),
+//    );
+//}
 
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('admin/login.twig', array(
@@ -114,11 +119,10 @@ $app->get('/login', function(Request $request) use ($app) {
     ));
 });
 
-//$app['adminAuth'] = $app->protect(function(Request $request) use ($app) {
-//    if(!$app['session']->get('isAdminAuthenticated')) {
-//        //$app->abort(403, 'You cannot be here!');
-//        return $app->redirect($app['url_generator']->generate('admin_login'));
-//    }
-//});
+if(TWILIO_ENABLED) {
+    $app['twilio'] = function () use ($app) {
+        return new \DC\SilexStarterPack\Utility\SMS($app);
+    };
+}
 
 return $app;

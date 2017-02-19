@@ -1,0 +1,41 @@
+{% extends "admin/shell.twig" %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Users</h1>
+        <a class="btn btn-primary" href="{{ path('admin.user.add') }}"><i class="fa fa-plus"></i> Add user</a>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> <a href="{{ path('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ path('admin.user.list') }}">Users</a></li>
+        <li>Viewing all users</li>
+    </ul>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th width="1%">ID</th>
+                <th width="20%">Username</th>
+                <th width="20%">Email</th>
+                <th>Roles</th>
+                <th>Added</th>
+                <th width="10%">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in users %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td><strong>{{ row.username }}</strong></td>
+                <td>{{ row.email }}</td>
+                <td>{% for role in row.roles|split(",") %}<span class="label label-default">{{ role }}</span>{% endfor %}</td>
+                <td>{{ row.created }}</td>
+                <td><a href="{{ path('admin.user.edit', {id: row.id}) }}" class="btn btn-default"><i class="fa fa-edit"></i></a> <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
