@@ -25,6 +25,12 @@ $app->before(function (Request $request) use ($app) {
     else if ($locale = $app['session']->get('locale')) {
         $app['locale'] = $locale;
     }
+
+    $user = $app['security.token_storage']->getToken();
+    $app['userInfo'] = array();
+    if(!empty($user)) {
+        $app['userInfo'] = $app['db']->fetchAssoc("SELECT id, username, email, roles FROM users WHERE username = ?", array($user->getUsername()));
+    }
 });
 
 // do some security stuff
@@ -53,6 +59,13 @@ $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
+$app['twig'] = $app->extend('twig', function ($twig, $app) {
+    $filter = new \Twig_SimpleFilter('md5', function ($string) {
+        return md5($string);
+    });
+    $twig->addFilter($filter);
+    return $twig;
+});
 
 // db
 $dbOptions = array(

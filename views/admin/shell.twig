@@ -134,6 +134,20 @@
             text-decoration: none;
         }
 
+        #nav-main .user-info {
+            border-top: 1px solid rgba(255,255,255,.5);
+        }
+        #nav-main .user-info a:hover {
+            background: transparent;
+        }
+        #nav-main .user-info a:before {
+            display: none;
+        }
+
+        #nav-main .user-info .username {
+            margin-left: 5px;
+        }
+
         #content {
             margin-left: 250px;
             padding: 0 1.5em;
@@ -180,6 +194,12 @@
         </ul>
 
         <ul id="bottom">
+            <li class="user-info">
+                <a>
+                    <img class="avatar" src="https://www.gravatar.com/avatar/{{ app.userInfo.email|md5 }}?s=20&amp;d=wavatar" />
+                    <span class="username">{{ app.user.username }}</span>
+                </a>
+            </li>
             <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
     </div>
