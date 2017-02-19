@@ -10,7 +10,7 @@ The Silex Starter Pack is a simple bootstrap to help you begin your project with
 Screenshot
 --------------
 
-![Admin Homepage](https://raw.github.com/deanc/silex-starter-pack/master/screenshot.png)
+![Admin Homepage](https://github.com/deanc/silex-starter-pack/raw/master/screenshot.png)
 
 Installation
 --------------
