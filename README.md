@@ -6,6 +6,11 @@ The Silex Starter Pack is a simple bootstrap to help you begin your project with
   - An admin login system and control panel (styled mostly using Bootstrap)
   - A very basic user authentication system allowing for sign up/log in/log out with users coming from a database.
   - A console application allowing quick and easy development of console tasks
+  
+Screenshot
+--------------
+
+![Admin Homepage](https://raw.github.com/deanc/silex-starter-pack/master/screenshot.png)
 
 Installation
 --------------
