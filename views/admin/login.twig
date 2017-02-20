@@ -8,24 +8,36 @@
     <meta name="author" content="">
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
+
+        @media (min-width: 320px) {
+            html, body, .holder {
+                height: 100%;
+            }
+        }
+
         /* thanks http://getbootstrap.com/examples/signin/signin.css  */
         body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #eee;
+            background-color: #1D1D1D;
+        }
+
+        .holder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .form-signin {
-            max-width: 360px;
+            max-width: 440px;
             padding: 15px;
             margin: 0 auto;
         }
         .form-signin .well {
             padding: 25px 40px 35px 40px;
         }
-        .form-signin .form-signin-heading { margin-top: 0; }
-        .form-signin .form-signin-heading,
+        .form-signin .form-signin-heading { margin-top: 0; margin-bottom: 15px; font-weight: normal; font-size: 26px; }
+
         .form-signin .checkbox {
             margin-bottom: 10px;
         }
@@ -46,6 +58,8 @@
             box-sizing: border-box;
             padding: 10px;
             font-size: 16px;
+            border: 0;
+            border-bottom: 1px solid #ccc;
         }
         .form-signin .form-control:focus {
             z-index: 2;
@@ -57,8 +71,24 @@
         }
         .form-signin input[type="password"] {
             margin-bottom: 10px;
+            margin-top: 5px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
+        }
+        .form-signin input[type="checkbox"] {
+            margin: 4px 5px 0 0;
+        }
+
+        @media (max-width: 480px) {
+            .form-signin {
+                padding: 0 10px;
+            }
+            .form-signin .well {
+                padding: 15px 20px;
+            }
+            .form-signin .form-signin-heading {
+                font-size: 20px;
+            }
         }
     </style>
 
@@ -70,11 +100,11 @@
 
 <body>
 
-<div class="container">
+<div class="holder">
 
     <form class="form-signin" action="{{ path('a_login_check') }}" method="post">
         <div class="well">
-            <h2 class="form-signin-heading">{{ app.translator.trans('admin.forms.login.header') }}</h2>
+            <h2 class="form-signin-heading"><i class="fa fa-sign-in"></i> {{ app.translator.trans('admin.forms.login.header')|raw }}</h2>
 
                 {% if error|length > 0 %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
                 <label class="sr-only" for="inputUsername">{{ app.translator.trans('admin.forms.login.labels.username') }}</label>
@@ -91,7 +121,6 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">{{ app.translator.trans('admin.forms.login.labels.submit') }}</button>
         </div>
     </form>
-
 
 </div> <!-- /container -->
 

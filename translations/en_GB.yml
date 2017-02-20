@@ -6,4 +6,4 @@ admin:
         username: Username
         password: Password
         submit: Sign in
-      header: "Please sign in"
+      header: "<strong>Welcome</strong>, please sign in"
